@@ -21,7 +21,7 @@
         .control_container 
 		{
 			position: absolute;
-			transform: translate(366%, -9%);
+			transform: translate(366%, -1%);
             border:3px solid black;
 			height: 980px;
 			width: 400px;
@@ -41,15 +41,22 @@
 			height: 1000px;
 			border: none;
 		}
+
+		.title
+		{
+			position: absolute;
+			left: 600px;
+		}
+
     </style>
-        <center><h1 style="color: bisque;">Periodic Table</h1></center>
+        <h1 class="title" style="color: bisque;">Periodic Table</h1>
         <div class="control_container">
             <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>"></iframe>
             <label for="cars">Sort:</label>
             <select name="sort" id="sort" onchange="changeTable(value)">
                 <option value="block.html">Element block (default)</option>
                 <option value="type.html">Element type</option>
-                <option value="discovery.html">Discovery</option>
+                <option value="radioactivity.html">Radioactivity</option>
             </select>
         </div>
         </iframe>
