@@ -58,7 +58,7 @@ public class HtmlObject
                 table_1.append(createHtmlElement(atomic_number, symbol, element_period, element_group, atomic_mass, name, block, occurence));
             }
         }
-        File f = new File("periodictable.html");
+        File f = new File("docs/index.html");
         f.createNewFile();
         FileOutputStream fos = new FileOutputStream(f);
         fos.write(BASE_HTML.getBytes());
