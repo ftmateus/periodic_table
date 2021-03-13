@@ -1,40 +1,28 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class HtmlObject 
+public class HtmlElementBlock 
 {
-    public static final String BASE_HTML;
-
-    static
-    {
-        BASE_HTML = setBaseHtml();
-    }
-
-    private static String setBaseHtml()
-    {
-        String str = null;
-        try {
-            str = new String(readFileContents("base_html.html"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        return str;
-    }
+    private final FileOutputStream fos;
 
     private StringBuilder table_1 = new StringBuilder(30*1024);
     private StringBuilder table_2 = new StringBuilder();
     private StringBuilder table_3 = new StringBuilder(10*1024);
     private ResultSet rs;
 
-    public HtmlObject(ResultSet rs)
+    public HtmlElementBlock(ResultSet rs) throws IOException
     {
         this.rs = rs;
+        File f = new File("docs/index.html");
+        f.createNewFile();
+        fos = new FileOutputStream(f);
+        fos.write(readFileContents("base_html.html"));
     }
 
     public void build() throws SQLException, IOException
@@ -48,7 +36,7 @@ public class HtmlObject
             float atomic_mass = rs.getFloat("atomic_mass");
             String block = rs.getString("block");
             String name = rs.getString("name");
-            String occurence = rs.getString("natural_occurence");
+            String occurence = rs.getString("natural_occurence_id");
             if(element_group < 0)
             {
                 table_3.append(createHtmlElement(atomic_number, symbol, element_period - 5, -element_group, atomic_mass, name, block, occurence));
@@ -58,10 +46,6 @@ public class HtmlObject
                 table_1.append(createHtmlElement(atomic_number, symbol, element_period, element_group, atomic_mass, name, block, occurence));
             }
         }
-        File f = new File("docs/index.html");
-        f.createNewFile();
-        FileOutputStream fos = new FileOutputStream(f);
-        fos.write(BASE_HTML.getBytes());
         fos.write("\t\t<div class=\"table_container\">\n".getBytes());
         fos.write(table_1.toString().getBytes());
         fos.write("\t\t</div>\n".getBytes());
@@ -69,7 +53,6 @@ public class HtmlObject
         fos.write(table_3.toString().getBytes());
         fos.write("\t\t</div>\n".getBytes());
         fos.write("\t</body>\n</html>".getBytes());
-        
         fos.close();
     }
 

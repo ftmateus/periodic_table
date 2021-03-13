@@ -2,8 +2,8 @@
 
 call mvn clean package assembly:single -q
 
-robocopy target . periodic_table_server-1.0-jar-with-dependencies.jar /mov > nul
+::robocopy target . periodic_table_server-1.0-jar-with-dependencies.jar /mov > nul
 
-del periodic_table_server.jar
+del target\periodic_table_server-1.0.jar
 
-ren periodic_table_server-1.0-jar-with-dependencies.jar periodic_table_server.jar
+ren target\periodic_table_server-1.0-jar-with-dependencies.jar periodic_table_server.jar

@@ -77,8 +77,14 @@ public class PeriodicTableServer {
 
             ResultSet rs = st.executeQuery("select elements.*, elementnames.name_en as name from elements left outer join ElementNames using (atomic_number)");
 
-            HtmlObject html = new HtmlObject(rs);
+            HtmlElementBlock html = new HtmlElementBlock(rs);
             html.build();
+
+            rs = st.executeQuery("select elements.*, elementnames.name_en as name from elements left outer join ElementNames using (atomic_number)");
+            HtmlElementType html2 = new HtmlElementType(rs);
+            html2.build();
+
+
 
         }
     }

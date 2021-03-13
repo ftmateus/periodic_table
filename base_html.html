@@ -91,14 +91,30 @@
             font-size: 15px;
         }
 
-        .element_properties_frame 
+        .control_container 
 		{
 			position: absolute;
-			transform: translate(358%, -8%);
-			height: 1000px;
+			transform: translate(355%, -9%);
+            border:3px solid black;
+			height: 980px;
 			width: 410px;
 		}
+
+        .element_properties_frame
+        {
+            position: relative;
+            height: 750px;
+            width: 410px;
+        }
     </style>
         <center><h1 style="color: bisque;">Periodic Table</h1></center>
-        <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>">
+        <div class="control_container">
+            <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>"></iframe>
+            <label for="cars">Sort:</label>
+            <select name="cars" id="cars">
+                <option value="volvo">Element block (default)</option>
+                <option value="volvo">Element type</option>
+                <option value="saab">Discovery</option>
+            </select>
+        </div>
         </iframe>
