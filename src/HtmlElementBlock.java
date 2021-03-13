@@ -19,7 +19,7 @@ public class HtmlElementBlock
     public HtmlElementBlock(ResultSet rs) throws IOException
     {
         this.rs = rs;
-        File f = new File("docs/index.html");
+        File f = new File("docs/block.html");
         f.createNewFile();
         fos = new FileOutputStream(f);
         fos.write(readFileContents("base_html.html"));

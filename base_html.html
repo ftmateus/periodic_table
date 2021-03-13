@@ -3,11 +3,11 @@
 <head>
     <title>Periodic table</title>
 </head>
-<body style="background-image: url('chemistry-wallpaper-6.jpg');">
+<body style="background: transparent;">
     <script type="text/javascript"">
 		function changeIframe(element_name) {
             console.log(element_name)
-            var iframe = document.getElementById("element_frame")
+            var iframe = parent.document.getElementById("element_frame")
             iframe.removeAttribute("srcdoc")
 			iframe.src='https://en.m.wikipedia.org/wiki/' + element_name;
 		}
@@ -90,31 +90,4 @@
             text-align:center;
             font-size: 15px;
         }
-
-        .control_container 
-		{
-			position: absolute;
-			transform: translate(355%, -9%);
-            border:3px solid black;
-			height: 980px;
-			width: 410px;
-		}
-
-        .element_properties_frame
-        {
-            position: relative;
-            height: 750px;
-            width: 410px;
-        }
     </style>
-        <center><h1 style="color: bisque;">Periodic Table</h1></center>
-        <div class="control_container">
-            <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>"></iframe>
-            <label for="cars">Sort:</label>
-            <select name="cars" id="cars">
-                <option value="volvo">Element block (default)</option>
-                <option value="volvo">Element type</option>
-                <option value="saab">Discovery</option>
-            </select>
-        </div>
-        </iframe>
