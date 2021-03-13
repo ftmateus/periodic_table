@@ -61,7 +61,7 @@ INSERT OR REPLACE INTO elementnames VALUES
 (6, 'Carbon', 'Carbono'), 
 (7, 'Nitrogen', 'Nitrogénio'), 
 (8, 'Oxygen', 'Oxigénio'),
-(9, 'Flourine', 'Fluór'), 
+(9, 'Fluorine', 'Fluór'), 
 (10, 'Neon', 'Néon'), 
 (11, 'Sodium', 'Sódio'),
 (12, 'Magnesium', 'Magnésio'),
