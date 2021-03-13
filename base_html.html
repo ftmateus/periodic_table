@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Periodic table</title>
+</head>
+<body style="background-image: url('chemistry-wallpaper-6.jpg');">
+    <script type="text/javascript"">
+		function changeIframe(element_name) {
+            console.log(element_name)
+            var iframe = document.getElementById("element_frame")
+            iframe.removeAttribute("srcdoc")
+			iframe.src='https://en.m.wikipedia.org/wiki/' + element_name;
+		}
+	
+	</script>
+    <style type="text/css">
+
+        body
+        {
+            color: black;
+            /*font-family: sans-serif*/
+        }
+
+        .table_container
+        {
+            position: relative;
+            display: grid;
+            grid-row-gap: 20px;
+            grid-column-gap: 2px;
+            grid-column-start: 1;
+            grid-column-end: 18;
+            grid-auto-columns: 80px;
+            grid-auto-rows: 70px;
+            height: 625px;
+            width: 1475px;
+        }
+
+        .table3_container
+        {
+            position: relative;
+            top: 90px;
+            left: 125px;
+            display: grid;
+            grid-row-gap: 20px;
+            grid-column-gap: 2px;
+            grid-column-start: 1;
+            grid-column-end: 14;
+            grid-auto-columns: 80px;
+            grid-auto-rows: 70px;
+            height: 180px;
+            width: 1150px;
+        }
+        .element_container
+        {
+            cursor: pointer;
+            display: inline-block;
+            height: 80px;
+            width: 70px;
+            border-width: 3px;
+            border-color: black;
+        }
+        .element_symbol 
+        {
+            position: relative;
+            text-align:center;
+            font-size: 40px;
+            bottom: 20%;
+            
+        }
+        .atomic_number
+        {
+            position: relative;
+            text-align:left;
+            font-size: 15px;
+            bottom: 50%;
+            left: 5%;
+            
+        }
+        .atomic_mass
+        {
+            position: relative;
+            text-align:right;
+            font-size: 15px;
+            bottom: 85%;
+            right: 5%;
+        }
+        .element_name
+        {
+            position: relative;
+            text-align:center;
+            font-size: 15px;
+        }
+
+        .element_properties_frame 
+		{
+			position: absolute;
+			transform: translate(358%, -8%);
+			height: 1000px;
+			width: 410px;
+		}
+    </style>
+        <center><h1 style="color: bisque;">Periodic Table</h1></center>
+        <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>">
+        </iframe>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<periodic_table>
+    <element period="1" group="1">
+        <name lang="EN">Hidrogen</name>
+        <name lang="PT">Hidrogénio</name>
+        <atomic_number>1</atomic_number>
+        <symbol>H</symbol>
+    </element>
+    <element period="1" group="18">
+        <name lang="EN">Helium</name>
+        <name lang="PT">Hélio</name>
+        <atomic_number>2</atomic_number>
+        <symbol>He</symbol>
+    </element>
+    <element period="2" group="1">
+        <name lang="EN">Lithium</name>
+        <name lang="PT">Lítio</name>
+        <atomic_number>3</atomic_number>
+        <symbol>Li</symbol>
+    </element>
+    <element period="2" group="2">
+        <name lang="EN">Beryllium</name>
+        <name lang="PT">Berílio</name>
+        <atomic_number>4</atomic_number>
+        <symbol>Be</symbol>
+    </element>
+    <element period="2" group="13">
+        <name lang="EN">Boron</name>
+        <name lang="PT">Boro</name>
+        <atomic_number>5</atomic_number>
+        <symbol>B</symbol>
+    </element>
+    <element period="2" group="14">
+        <name lang="EN">Carbon</name>
+        <name lang="PT">Carbono</name>
+        <atomic_number>6</atomic_number>
+        <symbol>C</symbol>
+    </element>
+    <element period="2" group="15">
+        <name lang="EN">Nitrogen</name>
+        <name lang="PT">Nitrogénio</name>
+        <atomic_number>7</atomic_number>
+        <symbol>N</symbol>
+    </element>
+    <element period="2" group="16">
+        <name lang="EN">Oxygen</name>
+        <name lang="PT">Oxigénio</name>
+        <atomic_number>8</atomic_number>
+        <symbol>O</symbol>
+    </element>
+    <element period="2" group="17">
+        <name lang="EN">Fluorine</name>
+        <name lang="PT">Flúor</name>
+        <atomic_number>9</atomic_number>
+        <symbol>F</symbol>
+    </element>
+    <element period="2" group="18">
+        <name lang="EN">Neon</name>
+        <name lang="PT">Néon</name>
+        <atomic_number>10</atomic_number>
+        <symbol>F</symbol>
+    </element>
+    <element period="3" group="1">
+        <name lang="EN">Sodium</name>
+        <name lang="PT">Sódio</name>
+        <atomic_number>11</atomic_number>
+        <symbol>Na</symbol>
+    </element>
+    <element period="3" group="2">
+        <name lang="EN">Magnesium</name>
+        <name lang="PT">Magnésio</name>
+        <atomic_number>12</atomic_number>
+        <symbol>Mg</symbol>
+    </element>
+    <element period="3" group="13">
+        <name lang="EN">Aluminium</name>
+        <name lang="PT">Alumínio</name>
+        <atomic_number>13</atomic_number>
+        <symbol>Al</symbol>
+    </element>
+    <element period="3" group="14">
+        <name lang="EN">Silicon</name>
+        <name lang="PT">Silício</name>
+        <atomic_number>14</atomic_number>
+        <symbol>Si</symbol>
+    </element>
+    <element period="3" group="15">
+        <name lang="EN">Phosphurus</name>
+        <name lang="PT">Fósforo</name>
+        <atomic_number>15</atomic_number>
+        <symbol>P</symbol>
+    </element>
+    <element period="3" group="16">
+        <name lang="EN">Sulfur</name>
+        <name lang="PT">Enxofre</name>
+        <atomic_number>16</atomic_number>
+        <symbol>S</symbol>
+    </element>
+    <element period="3" group="17">
+        <name lang="EN">Chlorine</name>
+        <name lang="PT">Cloro</name>
+        <atomic_number>17</atomic_number>
+        <symbol>Cl</symbol>
+    </element>
+    <element period="3" group="18">
+        <name lang="EN">Argon</name>
+        <name lang="PT">Árgon</name>
+        <atomic_number>18</atomic_number>
+        <symbol>Ar</symbol>
+    </element>
+    <element period="4" group="1">
+        <name lang="EN">Potassium</name>
+        <name lang="PT">Potássio</name>
+        <atomic_number>19</atomic_number>
+        <symbol>K</symbol>
+    </element>
+    <element period="4" group="2">
+        <name lang="EN">Calcium</name>
+        <name lang="PT">Cálcio</name>
+        <atomic_number>20</atomic_number>
+        <symbol>Ca</symbol>
+    </element>
+</periodic_table>
