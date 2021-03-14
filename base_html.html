@@ -5,8 +5,11 @@
 </head>
 <body style="background: transparent;">
     <script type="text/javascript"">
-		function changeIframe(element_name) {
-            console.log(element_name)
+		function changeIframe(element_id) {
+            console.log(element_id)
+            console.log(window.parent.language)
+            var element_div = document.getElementById(element_id)
+            var element_name = element_div.getAttribute("data-name_en")
             var iframe = parent.document.getElementById("element_frame")
             iframe.removeAttribute("srcdoc")
 			iframe.src='https://en.m.wikipedia.org/wiki/' + element_name;
@@ -91,4 +94,25 @@
             text-align:center;
             font-size: 15px;
         }
+
+        .legend_container
+		{
+			position: absolute;
+			border-style: hidden;
+			width: 550px;
+			transform: translate(300px, 100px);
+			color: bisque;
+		}
+
+		.occurence_legend
+		{
+			border-color: black; 
+			text-align: center;
+			width: 90px;
+		}
     </style>
+    <div class="legend_container" id="legend_container">
+        <h3 class="occurence_legend" style="border-style: solid;">Primordial</h3>
+        <h3 class="occurence_legend" style="border-style: dashed;">Decay</h3>
+        <h3 class="occurence_legend" style="border-style: dotted;">Synthetic</h3>
+    </div>

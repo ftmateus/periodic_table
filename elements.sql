@@ -7,11 +7,14 @@ INSERT OR REPLACE INTO Discovery VALUES
 (5, 'Also known up to 2000'),
 (6, 'Also known to 2012');
 
-INSERT OR REPLACE INTO Type VALUES
+INSERT OR REPLACE INTO ElementType VALUES
 (0, 'Not Defined'),
 (1, 'Metal'),
 (2, 'Semimetal'),
 (3, 'Nonmetal');
+
+INSERT OR REPLACE INTO Occurence VALUES
+('P', 'Primordial'), ('D', 'From Decay'), ('S', 'Synthetic');
 
 INSERT OR REPLACE INTO Category VALUES
 (0, 'Alkali metals'), (1, 'Alkali Earth metals'), (2, 'Transition metals'),
@@ -126,7 +129,7 @@ INSERT OR REPLACE INTO elements VALUES
 (103, 'Lr', 7, 3, 266.0, 'D', 'S', 1, 1),
 (104, 'Rf', 7, 4, 267.0, 'D', 'S', 1, 1),
 (105, 'Db', 7, 5, 268.0, 'D', 'S', 1, 1),
-(106, 'Sq', 7, 6, 268.0, 'D', 'S', 1, 1),
+(106, 'Sg', 7, 6, 268.0, 'D', 'S', 1, 1),
 (107, 'Bh', 7, 7, 270.0, 'D', 'S', 1, 1),
 (108, 'Hs', 7, 8, 269.0, 'D', 'S', 1, 1),
 (109, 'Mt', 7, 9, 278.0, 'D', 'S', 1, 1),
@@ -261,5 +264,17 @@ INSERT OR REPLACE INTO elementnames VALUES
 (118, 'Oganesson', NULL)
 ;
 
-
-
+DROP view PeriodicTableEN;
+CREATE VIEW PeriodicTableEN
+(atomic_number, symbol, name_en, name_pt_pt, element_period, element_group,
+atomic_mass, block, natural_occurence, type_name, radioactive)
+AS
+    SELECT atomic_number, symbol, name_en, name_pt_pt, 
+            element_period, element_group,
+            atomic_mass, block, occurence_text as natural_occurence, 
+            element_type_text_en as type_name, radioactive
+    FROM Elements inner join Occurence using (occurence_id)
+                  inner join ElementType using (element_type_id)
+                  inner join ElementNames using (atomic_number)
+;
+commit;

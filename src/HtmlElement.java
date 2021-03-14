@@ -37,9 +37,9 @@ public class HtmlElement
             int element_group = rs.getInt("element_group");
             float atomic_mass = rs.getFloat("atomic_mass");
             String block = rs.getString("block");
-            String name = rs.getString("name");
-            String occurence = rs.getString("natural_occurence_id");
-            int type = rs.getInt("element_type_id");
+            String name = rs.getString("name_en");
+            String occurence = rs.getString("natural_occurence");
+            String type = rs.getString("type_name");
             int radioactive = rs.getInt("radioactive");
             if(element_group < 0)
             {
@@ -72,25 +72,26 @@ public class HtmlElement
     }
 
     private String createHtmlElementType(int atomic_number, String symbol, int element_period, int element_group,
-                                    float atomic_mass, String name, String occurence, int type)
+                                    float atomic_mass, String name, String occurence, String type)
     {
         
         String color = "";
         switch (type)
         {
-            case 0: color = "white"; break; //"tomato"
-            case 1: color = "red"; break;
-            case 2: color = "yellow"; break;
-            case 3: color = "blue"; break;
+            case "Not defined": color = "white"; break; //"tomato"
+            case "Metal": color = "red"; break;
+            case "Semimetal": color = "yellow"; break;
+            case "Nonmetal": color = "blue"; break;
         }
 
         String border_style = "";
         switch(occurence)
         {
-            case "P": border_style = "border-style: solid"; break;
-            case "D": border_style = "border-style: dashed"; break;
-            case "S": border_style = "border-style: dotted"; break;
+            case "Primordial": border_style = "border-style: solid"; break;
+            case "From Decay": border_style = "border-style: dashed"; break;
+            case "Synthetic": border_style = "border-style: dotted"; break;
         }
+
 
         String atomic_mass_text;
         if(atomic_number >= 100)
@@ -102,7 +103,11 @@ public class HtmlElement
             atomic_mass_text = String.format("%.2f", atomic_mass);
         }
 
-        return "\t\t\t<div class=\"element_container\" style=\"grid-row-start:" + element_period + "; grid-column-start: " + element_group + "; background-color: " + color + "; " + border_style + ";\" onclick=\"changeIframe('" + name +"');\">\n"
+        return "\t\t\t<div id=\"" + symbol + "\"class=\"element_container\" style=\"grid-row-start:" + element_period 
+                    + "; grid-column-start: " + element_group 
+                    + "; background-color: " + color + "; " 
+                    + border_style 
+                    + ";\" onclick=\"changeIframe('" + symbol +"');\" data-name_en=\"" + name + "\">\n"
                     +    "\t\t\t\t<h1 class=\"element_symbol\">" + symbol + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_number\">" + atomic_number + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_mass\">" + atomic_mass_text + "</h1>\n"
@@ -124,9 +129,9 @@ public class HtmlElement
         String border_style = "";
         switch(occurence)
         {
-            case "P": border_style = "border-style: solid"; break;
-            case "D": border_style = "border-style: dashed"; break;
-            case "S": border_style = "border-style: dotted"; break;
+            case "Primordial": border_style = "border-style: solid"; break;
+            case "From Decay": border_style = "border-style: dashed"; break;
+            case "Synthetic": border_style = "border-style: dotted"; break;
         }
 
         String atomic_mass_text;
@@ -139,7 +144,11 @@ public class HtmlElement
             atomic_mass_text = String.format("%.2f", atomic_mass);
         }
 
-        return "\t\t\t<div class=\"element_container\" style=\"grid-row-start:" + element_period + "; grid-column-start: " + element_group + "; background-color: " + color + "; " + border_style + ";\" onclick=\"changeIframe('" + name +"');\">\n"
+        return "\t\t\t<div id=\"" + symbol + "\"class=\"element_container\" style=\"grid-row-start:" + element_period 
+                    + "; grid-column-start: " + element_group 
+                    + "; background-color: " + color + "; " 
+                    + border_style 
+                    + ";\" onclick=\"changeIframe('" + symbol +"');\" data-name_en=\"" + name + "\">\n"
                     +    "\t\t\t\t<h1 class=\"element_symbol\">" + symbol + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_number\">" + atomic_number + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_mass\">" + atomic_mass_text + "</h1>\n"
@@ -160,10 +169,11 @@ public class HtmlElement
         String border_style = "";
         switch(occurence)
         {
-            case "P": border_style = "border-style: solid"; break;
-            case "D": border_style = "border-style: dashed"; break;
-            case "S": border_style = "border-style: dotted"; break;
+            case "Primordial": border_style = "border-style: solid"; break;
+            case "From Decay": border_style = "border-style: dashed"; break;
+            case "Synthetic": border_style = "border-style: dotted"; break;
         }
+
 
         String atomic_mass_text;
         if(atomic_number >= 100)
@@ -175,7 +185,11 @@ public class HtmlElement
             atomic_mass_text = String.format("%.2f", atomic_mass);
         }
 
-        return "\t\t\t<div class=\"element_container\" style=\"grid-row-start:" + element_period + "; grid-column-start: " + element_group + "; background-color: " + color + "; " + border_style + ";\" onclick=\"changeIframe('" + name +"');\">\n"
+        return "\t\t\t<div id=\"" + symbol + "\"class=\"element_container\" style=\"grid-row-start:" + element_period 
+                    + "; grid-column-start: " + element_group 
+                    + "; background-color: " + color + "; " 
+                    + border_style 
+                    + ";\" onclick=\"changeIframe('" + symbol +"');\" data-name_en=\"" + name + "\">\n"
                     +    "\t\t\t\t<h1 class=\"element_symbol\">" + symbol + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_number\">" + atomic_number + "</h1>\n"
                     +    "\t\t\t\t<h1 class=\"atomic_mass\">" + atomic_mass_text + "</h1>\n"

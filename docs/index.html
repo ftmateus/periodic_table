@@ -5,10 +5,19 @@
 </head>
 <body style="background-image: url('chemistry-wallpaper-6.jpg');">
     <script type="text/javascript"">
+		window.language="en"
+
 		function changeTable(value)
 		{
 			document.getElementById("table_iframe").src = value
 		}
+
+		function hideSidebar()
+		{
+			console.log("booo")
+			document.getElementById("control_container").style.visibility = "hidden"
+		}
+
 	</script>
     <style type="text/css">
 
@@ -20,18 +29,24 @@
 
         .control_container 
 		{
-			position: absolute;
-			transform: translate(366%, -1%);
+			background-color: rgba(11, 158, 255, 0.548);
+			position: fixed;
+			visibility: visible;
+			top: 0;
+			right: 0;
             border:3px solid black;
-			height: 980px;
+			height: 100%;
 			width: 400px;
+			resize: both;
+    		overflow: auto;
 		}
 
         .element_properties_frame
         {
+			opacity: 1;
             position: relative;
-            height: 750px;
-            width: 400px;
+            height: 75%;
+            width: 396px;
 			border-color: black;
         }
 
@@ -50,16 +65,18 @@
 
     </style>
         <h1 class="title" style="color: bisque;">Periodic Table</h1>
-        <div class="control_container">
+        <div id="control_container" class="control_container">
             <iframe id="element_frame" class="element_properties_frame" src=""  srcdoc="<html><body>Select an element!</body></html>"></iframe>
-            <label for="cars">Sort:</label>
+            <label for="cars">Table:</label>
             <select name="sort" id="sort" onchange="changeTable(value)">
                 <option value="block.html">Element block (default)</option>
                 <option value="type.html">Element type</option>
                 <option value="radioactivity.html">Radioactivity</option>
             </select>
+			<button type="button" onclick="hideSidebar()">Hide side bar</button>
         </div>
         </iframe>
-		<iframe id='table_iframe' class='table_iframe' src="block.html" ></iframe>
+		<iframe id='table_iframe' class='table_iframe' src="block.html""></iframe>
+		<button type="button" onclick="hideSidebar()">Show side bar</button>
 	</body>
 </html>

@@ -23,6 +23,7 @@ import static main.SystemUtils.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -72,14 +73,14 @@ public class PeriodicTableServer {
         
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:periodic_table.db"))
         {
-            Statement st = connection.createStatement();
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM PeriodicTable");
             st.setQueryTimeout(30);  // set timeout to 30 sec.
+            ResultSet rs = st.executeQuery();
 
-            ResultSet rs = st.executeQuery("select elements.*, elementnames.name_en as name from elements left outer join ElementNames using (atomic_number)");
             new HtmlElement(rs, "block").build();
-            rs = st.executeQuery("select elements.*, elementnames.name_en as name from elements left outer join ElementNames using (atomic_number)");
+            rs = st.executeQuery();
             new HtmlElement(rs, "type").build();
-            rs = st.executeQuery("select elements.*, elementnames.name_en as name from elements left outer join ElementNames using (atomic_number)");
+            rs = st.executeQuery();
             new HtmlElement(rs, "radioactivity").build();
         }
     }
