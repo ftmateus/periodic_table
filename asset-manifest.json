@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/periodic_table/static/css/main.92bc9606.css",
-    "main.js": "/periodic_table/static/js/main.8b9ba015.js",
+    "main.css": "/periodic_table/static/css/main.5515a24c.css",
+    "main.js": "/periodic_table/static/js/main.5d10194c.js",
     "static/js/787.a7f553b0.chunk.js": "/periodic_table/static/js/787.a7f553b0.chunk.js",
     "static/media/chemistry-wallpaper-6.jpg": "/periodic_table/static/media/chemistry-wallpaper-6.46ce8b595acbed3c9557.jpg",
     "index.html": "/periodic_table/index.html",
-    "main.92bc9606.css.map": "/periodic_table/static/css/main.92bc9606.css.map",
-    "main.8b9ba015.js.map": "/periodic_table/static/js/main.8b9ba015.js.map",
+    "main.5515a24c.css.map": "/periodic_table/static/css/main.5515a24c.css.map",
+    "main.5d10194c.js.map": "/periodic_table/static/js/main.5d10194c.js.map",
     "787.a7f553b0.chunk.js.map": "/periodic_table/static/js/787.a7f553b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.92bc9606.css",
-    "static/js/main.8b9ba015.js"
+    "static/css/main.5515a24c.css",
+    "static/js/main.5d10194c.js"
   ]
 }
