@@ -43,21 +43,26 @@ function ElementContainer({element, setCurrentElement} : ElementContainerProps)
 	}
   
 
-	let color = "red";
+	let color = "rgb(255, 153, 153)";
 	{
-		if(element.block == "P") color = "yellow"
-		else if(element.block == "D") color = "deepskyblue"
-		else if(element.block == "F") color = "lawngreen"
+		if(element.block == "P") color = "rgb(253, 255, 140)"
+		// else if(element.block == "D") color = "deepskyblue"
+		else if(element.block == "D") color = "rgb(153, 204, 255)"
+		else if(element.block == "F") color = "rgb(155, 255, 153)"
 		else console.assert(element.block == "S")
 	}
 
 
-	return <>
+	return <div 
+		className="element_container_out"
+		style={{
+			gridRowStart: element.block == "F" ? 8 + (element.element_period - 5) : element.element_period,  
+			gridColumnStart: element.block == "F" ? -element.element_group + 2: element.element_group
+		}}
+	>
 		<div id={element.symbol} key={element.atomic_number} className="element_container" 
 			style={
 			{
-				gridRowStart: element.block == "F" ? 8 + (element.element_period - 5) : element.element_period,  
-				gridColumnStart: element.block == "F" ? -element.element_group + 2: element.element_group, 
 				backgroundColor: color, 
 				borderStyle: borderStyle,
 				// justifyContent : "center", 
@@ -72,7 +77,7 @@ function ElementContainer({element, setCurrentElement} : ElementContainerProps)
 				<span className="tooltiptext">{element?.name}</span>
 			</div>
 		</div>
-	</>
+	</div>
 }
 
 
@@ -108,7 +113,10 @@ function App() {
 			setShow(true);
 	}, [currentElement]);
 
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		setShow(false);
+		setCurrentElement(undefined)
+	};
 	const handleShow = () => setShow(true);
 
 	return (
