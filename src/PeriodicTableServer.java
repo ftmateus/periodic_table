@@ -77,6 +77,9 @@ public class PeriodicTableServer {
             st.setQueryTimeout(30);  // set timeout to 30 sec.
             ResultSet rs = st.executeQuery();
 
+            new JsonConverter(rs).build();
+
+            rs = st.executeQuery();
             new HtmlElement(rs, "block").build();
             rs = st.executeQuery();
             new HtmlElement(rs, "type").build();

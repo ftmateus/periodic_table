@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import org.json.JSONArray;
+
 public class HtmlElement 
 {
-    private final FileOutputStream fos;
+    private final FileOutputStream fosHtml;
     private String category;
 
     private StringBuilder table_1 = new StringBuilder(30*1024);
@@ -23,8 +25,9 @@ public class HtmlElement
         this.category = category;
         File f = new File("docs/" + category + ".html");
         f.createNewFile();
-        fos = new FileOutputStream(f);
-        fos.write(readFileContents("base_html.html"));
+        fosHtml = new FileOutputStream(f);
+        fosHtml.write(readFileContents("base_html.html"));
+       
     }
 
     public void build() throws SQLException, IOException
@@ -61,14 +64,14 @@ public class HtmlElement
                 }
             }
         }
-        fos.write("\t\t<div class=\"table_container\">\n".getBytes());
-        fos.write(table_1.toString().getBytes());
-        fos.write("\t\t</div>\n".getBytes());
-        fos.write("\t\t<div class=\"table3_container\">\n".getBytes());
-        fos.write(table_3.toString().getBytes());
-        fos.write("\t\t</div>\n".getBytes());
-        fos.write("\t</body>\n</html>".getBytes());
-        fos.close();
+        fosHtml.write("\t\t<div class=\"table_container\">\n".getBytes());
+        fosHtml.write(table_1.toString().getBytes());
+        fosHtml.write("\t\t</div>\n".getBytes());
+        fosHtml.write("\t\t<div class=\"table3_container\">\n".getBytes());
+        fosHtml.write(table_3.toString().getBytes());
+        fosHtml.write("\t\t</div>\n".getBytes());
+        fosHtml.write("\t</body>\n</html>".getBytes());
+        fosHtml.close();
     }
 
     private String createHtmlElementType(int atomic_number, String symbol, int element_period, int element_group,
