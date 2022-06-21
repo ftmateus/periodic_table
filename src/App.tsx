@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Dropdown, DropdownButton, Spinner } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Spinner, Tab, Tabs } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import OffcanvasHeader from 'react-bootstrap/OffcanvasHeader'
 import Offcanvas from 'react-bootstrap/Offcanvas'
@@ -161,6 +161,35 @@ function MainTable({setCurrentElement, currentFilter} : MainTableProps)
     return table;
 }
 
+function getNextElement(currentElement : Element | undefined)
+{
+	if(!currentElement) return undefined;
+	if(currentElement.atomic_number == elements.length) return undefined;
+
+	console.assert(elements[currentElement.atomic_number - 1] == currentElement)
+
+	let nextElement = elements[currentElement.atomic_number]
+
+	console.assert(nextElement.atomic_number == currentElement.atomic_number + 1, 
+		`Current Element: ${currentElement.atomic_number} Next Element: ${nextElement.atomic_number}`)
+
+	return nextElement;
+}
+function getPreviousElement(currentElement : Element | undefined)
+{
+	if(!currentElement) return undefined;
+	if(currentElement.atomic_number == 1) return undefined;
+
+	console.assert(elements[currentElement.atomic_number - 1] == currentElement)
+
+	let previousElement = elements[currentElement.atomic_number - 2]
+
+	console.assert(previousElement.atomic_number == currentElement.atomic_number - 1, 
+		`Current Element : ${currentElement.atomic_number} Previous Element : ${previousElement.atomic_number}`)
+
+	return previousElement;
+}
+
 
 function App() {
 
@@ -211,27 +240,19 @@ function App() {
 
 		<Offcanvas show={show} onHide={handleClose} placement="end" style={{margin : 0, width : 600}}>
 			<Offcanvas.Header closeButton>
-			<Offcanvas.Title>
-				{currentElement?.name ?? "Select an element first!"}
-				{
-					loadingWikipedia ?
-					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
-					</Spinner>
-					: <></>
-				}
-			</Offcanvas.Title>
-			<div style={{display : "flex", justifyContent : "space-between", width : 300}}>
-				<Button variant="danger">
-					Wikipedia
-				</Button>
-				<Button variant="primary">
-					Google
-				</Button>
-				<Button variant="primary">
-					Bing
-				</Button>
-			</div>
+				{/* <Offcanvas.Title>
+					{currentElement?.name ?? "Select an element first!"}
+				</Offcanvas.Title> */}
+				<div style={{display : "flex", justifyContent : "space-between", width : 300}}>
+					<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+						<Tab eventKey="home" title="Wikipedia">
+						</Tab>
+						<Tab eventKey="profile" title="Images">
+						</Tab>
+						{/* <Tab eventKey="contact" title="Contact">
+						</Tab> */}
+					</Tabs>
+				</div>
 			</Offcanvas.Header>
 			<Offcanvas.Body style={{padding : 0, overflow: "hidden"}}>
 				<iframe 
@@ -240,8 +261,37 @@ function App() {
 					className="element_properties_frame" 
 					src={currentElement ? "https://en.m.wikipedia.org/wiki/" + currentElement.name : ""} 
 					onLoad={() => setLoadingWikipedia(false) }
-				/>
+				>
+				</iframe>
+				{
+					loadingWikipedia ?
+					<div style={{display : "flex" , justifyContent : "center", alignItems : "center", position : "absolute", width : "100%", height : "100%", top : 0}}>
+						<Spinner animation="border" role="status" style={{width : 75, height : 75}}>
+							<span className="visually-hidden">Loading...</span>
+						</Spinner>
+					</div>
+					: <></>
+				}
+				
+				{/* <div style={{position : "absolute", display : "flex", justifyContent : "space-around", height : "50px", bottom : 0}}>
+					<p>Left</p>
+					<p>Center</p>
+					<p>Right</p>
+				</div> */}
 			</Offcanvas.Body>
+			<Offcanvas.Header> {/*More like a footer */}
+				<div style={{display : "flex", justifyContent : "space-around", width : "100%"}}>
+					<a style={{cursor : "pointer"}}onClick={() => setCurrentElement(getPreviousElement(currentElement))}>
+						{getPreviousElement(currentElement) ? "⬅️" + getPreviousElement(currentElement)?.name : ""}
+					</a>
+					<Offcanvas.Title>
+						{currentElement?.name ?? "Select an element first!"}
+					</Offcanvas.Title>
+					<a style={{cursor : "pointer"}}onClick={() => setCurrentElement(getNextElement(currentElement))}>
+						{getNextElement(currentElement) ? getNextElement(currentElement)?.name  + "➡️" : ""}
+					</a>
+				</div>
+			</Offcanvas.Header>
 		</Offcanvas>
 		</div>
   );
