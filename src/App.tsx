@@ -25,7 +25,7 @@ type Element =
 	atomic_mass : number;
 }
 
-enum Filters
+enum Filter
 {
 	RADIOACTIVITY = "Radioactivity",
 	TYPE = "Type",
@@ -33,11 +33,57 @@ enum Filters
 	OCCURENCE = "Occurence"
 }
 
+function getElementTileColor(element : Element, currentFilter : Filter)
+{
+	switch(currentFilter)
+	{
+		case Filter.BLOCK :
+		{
+			switch(element.block)
+			{
+				case "P" : return "rgb(253, 255, 140)"
+				case "D" : return "rgb(153, 204, 255)"
+				case "F" : return "rgb(155, 255, 153)"
+				case "S" : return "rgb(255, 153, 153)"
+				default : console.assert(false, "Unknown element block!"); return "" 
+			}
+		}
+		case Filter.OCCURENCE :
+		{
+			switch(element.occurence)
+			{
+				case "Primordial" : return "rgb(155, 255, 153)"
+				case "From Decay" : return "rgb(255, 153, 153)"
+				case "Synthetic" : return "deepskyblue"
+				default : console.assert(false, "Unknown element occurence!"); return ""
+			}
+		}
+		case Filter.RADIOACTIVITY :
+		{
+			if(element.radioactive) return "red"
+			else return "green"
+		}
+		case Filter.TYPE :
+		{
+			switch(element.type)
+			{
+				case "Nonmetal" : 	return "rgb(253, 255, 140)"
+				case "Semimetal" : 	return "rgb(255, 153, 153)"
+				case "Metal" : 		return "lightgrey"
+				default : console.assert(false, "Unknown element type!"); return ""
+
+			}
+		}
+		default : console.assert(false, "Unknown filter!"); return ""
+
+	}
+}
+
 type ElementContainerProps = 
 {
  	element : Element;
 	setCurrentElement : Dispatch<SetStateAction<Element | undefined>>;
-	currentFilter : Filters
+	currentFilter : Filter
 }
 
 function ElementContainer({element, setCurrentElement, currentFilter} : ElementContainerProps)
@@ -51,50 +97,7 @@ function ElementContainer({element, setCurrentElement, currentFilter} : ElementC
 		else console.assert(element.occurence == "Primordial")
 	}
   
-
-	let color = undefined;
-	if(currentFilter == Filters.BLOCK){
-		if(element.block == "P") color = "rgb(253, 255, 140)"
-		// else if(element.block == "D") color = "deepskyblue"
-		else if(element.block == "D") color = "rgb(153, 204, 255)"
-		else if(element.block == "F") color = "rgb(155, 255, 153)"
-		else {
-			color = "rgb(255, 153, 153)"
-			console.assert(element.block == "S")
-		}
-	}
-	else if(currentFilter == Filters.TYPE)
-	{
-		if(element.type == "Nonmetal") color = "rgb(253, 255, 140)"
-		// else if(element.block == "D") color = "deepskyblue"
-		else if(element.type == "Metal") color = "lightgrey"
-		else {
-			color = "rgb(255, 153, 153)"
-			console.assert(element.type == "Semimetal")
-		}
-	}
-	else if(currentFilter == Filters.OCCURENCE)
-	{
-		if(element.occurence == "Primordial") color = "rgb(155, 255, 153)"
-		else if(element.occurence == "From Decay") color = "rgb(255, 153, 153)"
-		else 
-		{
-			console.assert(element.occurence == "Synthetic")
-			color = "deepskyblue"
-		} 
-	}
-	else 
-	{
-		console.assert(currentFilter == Filters.RADIOACTIVITY)
-		if(element.radioactive) color = "red"
-		else color = "green"
-	}
-	// {
-	// 	color = "red";
-	// 	if(element.radioactive) color = "red"
-	// 	else color = "green"
-	// }
-
+	let color = getElementTileColor(element, currentFilter)
 
 	// let component = <></>
 
@@ -133,7 +136,7 @@ function ElementContainer({element, setCurrentElement, currentFilter} : ElementC
 type MainTableProps =
 {
 	setCurrentElement : Dispatch<SetStateAction<Element | undefined>>
-	currentFilter : Filters
+	currentFilter : Filter
 }
 
 function MainTable({setCurrentElement, currentFilter} : MainTableProps)
@@ -175,6 +178,7 @@ function getNextElement(currentElement : Element | undefined)
 
 	return nextElement;
 }
+
 function getPreviousElement(currentElement : Element | undefined)
 {
 	if(!currentElement) return undefined;
@@ -190,20 +194,50 @@ function getPreviousElement(currentElement : Element | undefined)
 	return previousElement;
 }
 
+type FiltersDropdownProps =
+{
+	currentFilter : Filter,
+	setCurrentFilter : React.Dispatch<React.SetStateAction<Filter>>
+}
+
+function getWikipediaUrl(element? : Element)
+{
+	if(!element) return ""
+
+	if(element.name == "Mercury") 
+		return `https://en.m.wikipedia.org/wiki/${element.name} (element)`
+
+	return `https://en.m.wikipedia.org/wiki/${element.name}`
+}
+
+function FiltersDropdown({currentFilter, setCurrentFilter} : FiltersDropdownProps)
+{
+	return <DropdownButton
+				align={{ lg: 'end' }}
+				title={`Filter (${currentFilter}) `}
+				id="filter"
+			>
+				<Dropdown.Item eventKey="1" onClick={() => setCurrentFilter(Filter.RADIOACTIVITY)}>Radioactivity</Dropdown.Item>
+				<Dropdown.Item eventKey="2" onClick={() => setCurrentFilter(Filter.TYPE)}>Type</Dropdown.Item>
+				<Dropdown.Item eventKey="3" onClick={() => setCurrentFilter(Filter.OCCURENCE)}>Occurence</Dropdown.Item>
+				<Dropdown.Item eventKey="4" onClick={() => setCurrentFilter(Filter.BLOCK)}>Block (Default)</Dropdown.Item>
+			</DropdownButton>
+}
+
 
 function App() {
 
 	const [show, setShow] = useState(false);
 	const [currentElement, setCurrentElement] = useState<Element | undefined>(undefined);
-	const [currentFilter, setCurrentFilter] = useState(Filters.BLOCK);
-	const [loadingWikipedia, setLoadingWikipedia] = useState(false);
+	const [currentFilter, setCurrentFilter] = useState(Filter.BLOCK);
+	const [loadingTabPage, setLoadingTabPage] = useState(false);
 
 	React.useEffect(()=>{
 		// console.log(currentElement)
 		if(currentElement)
 		{
 			setShow(true);
-			setLoadingWikipedia(true)
+			setLoadingTabPage(true)
 		}
 			
 	}, [currentElement]);
@@ -212,7 +246,15 @@ function App() {
 		setShow(false);
 		setCurrentElement(undefined)
 	};
-	const handleShow = () => setShow(true);
+	
+	const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.code === "ArrowLeft") {
+			setCurrentElement(getPreviousElement(currentElement));
+		}
+		else if (event.code === "ArrowRight") {
+			setCurrentElement(getNextElement(currentElement));
+		}
+	  };
 
 	return (
 		<div style={{position: "relative"}}>
@@ -225,29 +267,20 @@ function App() {
 				<h3 className="occurence_legend" style={{borderStyle: "dotted"}}>Synthetic</h3>
 			</div>
 			<div>
-				<DropdownButton
-					align={{ lg: 'end' }}
-					title={`Filter (${currentFilter}) `}
-					id="filter"
-				>
-					<Dropdown.Item eventKey="1" onClick={() => setCurrentFilter(Filters.RADIOACTIVITY)}>Radioactivity</Dropdown.Item>
-					<Dropdown.Item eventKey="2" onClick={() => setCurrentFilter(Filters.TYPE)}>Type</Dropdown.Item>
-					<Dropdown.Item eventKey="3" onClick={() => setCurrentFilter(Filters.OCCURENCE)}>Occurence</Dropdown.Item>
-					<Dropdown.Item eventKey="4" onClick={() => setCurrentFilter(Filters.BLOCK)}>Block (Default)</Dropdown.Item>
-    			</DropdownButton>
+				<FiltersDropdown currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
 			</div>
 		</div>
 
-		<Offcanvas show={show} onHide={handleClose} placement="end" style={{margin : 0, width : 600}}>
+		<Offcanvas show={show} onHide={handleClose} placement="end" style={{margin : 0, width : 600}} onKeyDown={keyDownHandler}>
 			<Offcanvas.Header closeButton>
 				{/* <Offcanvas.Title>
 					{currentElement?.name ?? "Select an element first!"}
 				</Offcanvas.Title> */}
 				<div style={{display : "flex", justifyContent : "space-between", width : 300}}>
-					<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
-						<Tab eventKey="home" title="Wikipedia">
+					<Tabs defaultActiveKey="wiki" id="uncontrolled-tab-example" className="mb-3">
+						<Tab eventKey="wiki" title="Wikipedia" tabIndex={0}>
 						</Tab>
-						<Tab eventKey="profile" title="Images">
+						<Tab eventKey="imgs" title="Images" tabIndex={1}>
 						</Tab>
 						{/* <Tab eventKey="contact" title="Contact">
 						</Tab> */}
@@ -259,12 +292,19 @@ function App() {
 					id="element_frame" 
 					style={{padding : 0}} 
 					className="element_properties_frame" 
-					src={currentElement ? "https://en.m.wikipedia.org/wiki/" + currentElement.name : ""} 
-					onLoad={() => setLoadingWikipedia(false) }
+					src={getWikipediaUrl(currentElement)} 
+					onLoad={() => setLoadingTabPage(false) }
+				/>
+				{/* <iframe 
+					id="element_frame" 
+					style={{padding : 0}} 
+					className="element_properties_frame" 
+					src={"https://www.google.com/search?tbm=isch&q=" + currentElement?.name} 
+					onLoad={() => setLoadingTabPage(false) }
 				>
-				</iframe>
+				</iframe> */}
 				{
-					loadingWikipedia ?
+					loadingTabPage ?
 					<div style={{display : "flex" , justifyContent : "center", alignItems : "center", position : "absolute", width : "100%", height : "100%", top : 0}}>
 						<Spinner animation="border" role="status" style={{width : 75, height : 75}}>
 							<span className="visually-hidden">Loading...</span>
