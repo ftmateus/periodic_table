@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/periodic_table/static/css/main.021c21f2.css",
-    "main.js": "/periodic_table/static/js/main.0326be43.js",
+    "main.js": "/periodic_table/static/js/main.555138fe.js",
     "static/js/787.a7f553b0.chunk.js": "/periodic_table/static/js/787.a7f553b0.chunk.js",
     "static/media/chemistry-wallpaper-6.jpg": "/periodic_table/static/media/chemistry-wallpaper-6.46ce8b595acbed3c9557.jpg",
     "index.html": "/periodic_table/index.html",
     "main.021c21f2.css.map": "/periodic_table/static/css/main.021c21f2.css.map",
-    "main.0326be43.js.map": "/periodic_table/static/js/main.0326be43.js.map",
+    "main.555138fe.js.map": "/periodic_table/static/js/main.555138fe.js.map",
     "787.a7f553b0.chunk.js.map": "/periodic_table/static/js/787.a7f553b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.021c21f2.css",
-    "static/js/main.0326be43.js"
+    "static/js/main.555138fe.js"
   ]
 }
